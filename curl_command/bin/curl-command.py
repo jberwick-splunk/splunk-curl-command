@@ -49,7 +49,7 @@ class curlCommand(GeneratingCommand):
     # Deprecated
     paramMap   = self.parseParamMap(self.paramMap) if self.paramMap != None else None
 
-    if self.auth is not None and 'splunk' in auth.lower():
+    if self.auth is not None and 'splunk' in self.auth.lower():
       headers    = self.parseHeaders("{'Authorization': 'Bearer "+ self._metadata.searchinfo.session_key+"'}")
       auth = None
     else:
