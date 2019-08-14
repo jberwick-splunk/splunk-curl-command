@@ -15,6 +15,7 @@ output | string | json || text (default: jsont)
 timeout | int | 0..∞
 auth | string | Basic, User, Password
 headers | json | {'option1': 'val1', 'option2': 'val2'}
+verify | bool | true OR false (default: true)
 proxies | string | http_proxy, https_proxy
 unsetProxy | bool | true OR false (default: false)
 
