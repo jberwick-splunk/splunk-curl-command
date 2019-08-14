@@ -41,7 +41,6 @@ class curlCommand(GeneratingCommand):
     payload    = self.parseJSONStrToJSON(self.payload) if self.payload != None else None
     output     = self.output
     timeout    = self.timeout if self.timeout != None else None
-    auth       = self.parseAuth(self.auth) if self.auth != None else None
     headers    = self.parseJSONStrToJSON(self.headers) if self.headers != None else None
     proxies    = self.parseProxies(self.proxies) if self.proxies != None else None
     verify     = self.verify
@@ -50,6 +49,12 @@ class curlCommand(GeneratingCommand):
     # Deprecated
     paramMap   = self.parseParamMap(self.paramMap) if self.paramMap != None else None
 
+    if self.auth is not None and 'splunk' in auth.lower():
+      headers    = self.parseHeaders("{'Authorization': 'Bearer "+ self._metadata.searchinfo.session_key+"'}")
+      auth = None
+    else:
+      auth   = self.parseAuth(self.auth) if self.auth != None else None
+    
     if payload == None:
       payload = paramMap
     # /Deprecated
