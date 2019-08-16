@@ -28,7 +28,7 @@ class curlCommand(GeneratingCommand):
   auth       = Option(require=False)
   headers    = Option(require=False)
   proxies    = Option(require=False)
-  verify     = Option(require=False, default=True, validator=validators.Boolean())
+  verify     = Option(require=False, default=True, validate=validators.Boolean())
   unsetProxy = Option(require=False, validate=validators.Boolean())
   
   # Deprecated
@@ -50,7 +50,7 @@ class curlCommand(GeneratingCommand):
     paramMap   = self.parseParamMap(self.paramMap) if self.paramMap != None else None
 
     if self.auth is not None and 'splunk' in self.auth.lower():
-      headers    = self.parseHeaders("{'Authorization': 'Bearer "+ self._metadata.searchinfo.session_key+"'}")
+      headers    = self.parseJSONStrToJSON("{'Authorization': 'Bearer "+ self._metadata.searchinfo.session_key+"'}")
       auth = None
     else:
       auth   = self.parseAuth(self.auth) if self.auth != None else None
